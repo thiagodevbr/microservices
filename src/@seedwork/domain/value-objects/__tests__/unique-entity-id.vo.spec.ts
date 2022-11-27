@@ -1,5 +1,5 @@
-import InvalidUUIDError from "../../@seedwork/errors/invalid-uuid.error";
-import UniqueEntityId from "./unique-entity-id.vo";
+import InvalidUUIDError from "../../../../@seedwork/errors/invalid-uuid.error";
+import UniqueEntityId from "../unique-entity-id.vo";
 
 const spyValidateMethod = () => {
   return jest.spyOn(UniqueEntityId.prototype as any, "validate");
@@ -26,7 +26,7 @@ describe("UniqueEntityId Unit Tests", () => {
     expect(
       () => new UniqueEntityId("94236249-12d4-4095-92ad-c018d464cb55")
     ).not.toThrow();
-    expect(vo.id).toBe("94236249-12d4-4095-92ad-c018d464cb55");
+    expect(vo.value).toBe("94236249-12d4-4095-92ad-c018d464cb55");
     expect(validateSpy).toHaveBeenCalled();
   });
 });
