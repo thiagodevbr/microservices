@@ -85,4 +85,97 @@ describe("Category tests", () => {
       expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
     });
   });
+
+  test("update name and description", () => {
+    const date = new Date();
+    const category = new Category({
+      name: "Movie fake 01",
+      description: "Description fake 01",
+      created_at: date,
+    });
+
+    category.update({ name: "Movie fake 02" });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 01",
+      is_active: true,
+      created_at: date,
+    });
+
+    category.update({ description: "Description fake 02" });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 02",
+      is_active: true,
+      created_at: date,
+    });
+
+    category.update({ name: "" });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 02",
+      is_active: true,
+      created_at: date,
+    });
+
+    category.update({ description: "" });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 02",
+      is_active: true,
+      created_at: date,
+    });
+
+    category.update({ description: null });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 02",
+      is_active: true,
+      created_at: date,
+    });
+
+    category.update({ description: undefined });
+    expect(category.props).toStrictEqual({
+      name: "Movie fake 02",
+      description: "Description fake 02",
+      is_active: true,
+      created_at: date,
+    });
+  });
+
+  test("test activate and deactivate category", () => {
+    const date = new Date();
+    const category = new Category({
+      name: "Movie",
+      description: "my movie test description ",
+      created_at: date,
+    });
+
+    category.deactivate();
+
+    expect(category.props).toStrictEqual({
+      name: "Movie",
+      description: "my movie test description ",
+      created_at: date,
+      is_active: false,
+    });
+
+    category.activate();
+
+    expect(category.props).toStrictEqual({
+      name: "Movie",
+      description: "my movie test description ",
+      created_at: date,
+      is_active: true,
+    });
+
+    category.activate();
+
+    expect(category.props).toStrictEqual({
+      name: "Movie",
+      description: "my movie test description ",
+      created_at: date,
+      is_active: true,
+    });
+  });
 });
